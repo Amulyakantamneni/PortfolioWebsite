@@ -24,6 +24,36 @@ export function Projects() {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   const projects: Project[] = [
+    // ✅ NEW PROJECT — added first
+    {
+      title: 'AI CodeAssistant — Debug, Refactor & Optimize',
+      description:
+        'An end-to-end AI coding copilot that acts like a senior engineer on-demand: it diagnoses issues, explains root causes, generates clean fixes, and refactors code for performance, maintainability, and production readiness.',
+      tags: ['Next.js', 'FastAPI', 'LLMs', 'Streaming', 'Code Intelligence'],
+      github: 'https://github.com/Amulyakantamneni/CodeAssistant',
+      demo: 'https://www.ai-codeassistant.com',
+      image:
+        'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1080&q=80',
+      featured: true,
+      details: {
+        problem:
+          'Engineering teams lose significant time to debugging, code review churn, and repetitive refactoring. Existing copilots often stop at “suggestions” and don’t consistently provide grounded, production-quality fixes—especially across larger codebases and real-world edge cases.',
+        solution:
+          'Built an AI coding assistant that goes beyond autocomplete. It provides structured diagnostics, proposes safe and testable changes, and produces recruiter-grade explanations a senior engineer would give—helping engineers ship faster while improving code quality and reliability.',
+        features: [
+          'Multi-mode workflows: Debugger, Refactorizer, Optimizer, and Best-Practices reviewer',
+          'Root-cause explanations + actionable fixes with clear reasoning',
+          'Production-style refactors: readability, modularity, error handling, and performance improvements',
+          'Streaming responses for fast interactive iteration (copilot-like experience)',
+          'Developer-friendly UX: clean interface, quick actions, and copy-ready outputs',
+          'Designed for real-world code: focuses on clarity, maintainability, and “ship-ready” changes',
+        ],
+        learnings:
+          'Learned how to build a product-grade developer tool: designing fast feedback loops, creating structured outputs that engineers trust, and optimizing for “time-to-fix” and code quality—exactly the outcomes high-performing teams care about.',
+      },
+    },
+
+    // Existing projects
     {
       title: 'AI Multi-format Writer',
       description:
@@ -80,7 +110,10 @@ export function Projects() {
   ];
 
   return (
-    <section id="projects" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-blue-50/30">
+    <section
+      id="projects"
+      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-blue-50/30"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -133,7 +166,7 @@ export function Projects() {
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
-                  
+
                   {/* Folder Icon */}
                   <div className="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg">
                     <Folder className="text-blue-600" size={24} />
@@ -145,7 +178,7 @@ export function Projects() {
                   <h3 className="text-xl text-slate-900 font-semibold line-clamp-2 group-hover:text-blue-600 transition-colors">
                     {project.title}
                   </h3>
-                  
+
                   <p className="text-slate-600 line-clamp-2 leading-relaxed">
                     {project.description}
                   </p>
@@ -209,7 +242,7 @@ export function Projects() {
                 onClick={() => setActiveProject(null)}
                 className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md"
               />
-              
+
               {/* Modal Content */}
               <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
                 <motion.div
@@ -235,20 +268,33 @@ export function Projects() {
                   <div className="p-6 space-y-6">
                     <div className="space-y-4">
                       <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
-                        <h4 className="font-semibold text-red-900 mb-2">Problem</h4>
-                        <p className="text-slate-700">{activeProject.details.problem}</p>
+                        <h4 className="font-semibold text-red-900 mb-2">
+                          Problem
+                        </h4>
+                        <p className="text-slate-700">
+                          {activeProject.details.problem}
+                        </p>
                       </div>
 
                       <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
-                        <h4 className="font-semibold text-green-900 mb-2">Solution</h4>
-                        <p className="text-slate-700">{activeProject.details.solution}</p>
+                        <h4 className="font-semibold text-green-900 mb-2">
+                          Solution
+                        </h4>
+                        <p className="text-slate-700">
+                          {activeProject.details.solution}
+                        </p>
                       </div>
 
                       <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
-                        <h4 className="font-semibold text-blue-900 mb-3">Key Features</h4>
+                        <h4 className="font-semibold text-blue-900 mb-3">
+                          Key Features
+                        </h4>
                         <ul className="space-y-2">
                           {activeProject.details.features.map((f, i) => (
-                            <li key={i} className="flex items-start gap-3 text-slate-700">
+                            <li
+                              key={i}
+                              className="flex items-start gap-3 text-slate-700"
+                            >
                               <span className="text-blue-600 mt-1">✓</span>
                               <span>{f}</span>
                             </li>
@@ -257,8 +303,12 @@ export function Projects() {
                       </div>
 
                       <div className="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg">
-                        <h4 className="font-semibold text-purple-900 mb-2">Learnings</h4>
-                        <p className="text-slate-700">{activeProject.details.learnings}</p>
+                        <h4 className="font-semibold text-purple-900 mb-2">
+                          Learnings
+                        </h4>
+                        <p className="text-slate-700">
+                          {activeProject.details.learnings}
+                        </p>
                       </div>
                     </div>
 
