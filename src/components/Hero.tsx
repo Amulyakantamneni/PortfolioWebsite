@@ -2,6 +2,16 @@ import { motion } from "motion/react";
 import { ArrowDown, Github, Linkedin, Mail, Sparkles, Rocket } from "lucide-react";
 
 export function Hero() {
+  const taglineWords = [
+    { text: "Building" },
+    { text: "intelligent", highlight: true },
+    { text: "systems", highlight: true },
+    { text: "that" },
+    { text: "ship" },
+    { text: "to" },
+    { text: "production." },
+  ];
+
   return (
     <section
       id="home"
@@ -68,19 +78,45 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="mx-auto mb-6 max-w-4xl text-xl font-medium leading-snug text-slate-600 sm:text-3xl"
           >
-            Building{" "}
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text font-bold text-transparent">
-                intelligent systems
-              </span>
-              <motion.span
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="absolute bottom-0 left-0 -z-10 h-3 bg-gradient-to-r from-blue-400/20 to-indigo-400/20"
-              />
-            </span>{" "}
-            that ship to production.
+            <motion.span
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+                },
+              }}
+            >
+              {taglineWords.map((word, index) => (
+                <motion.span
+                  key={`${word.text}-${index}`}
+                  variants={{
+                    hidden: { opacity: 0, y: 12 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  className="inline-block"
+                >
+                  {word.highlight ? (
+                    <span className="relative inline-block">
+                      <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text font-bold text-transparent">
+                        {word.text}
+                      </span>
+                      <motion.span
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                        className="absolute bottom-0 left-0 -z-10 h-2 w-full origin-left bg-gradient-to-r from-blue-400/25 to-indigo-400/25"
+                      />
+                    </span>
+                  ) : (
+                    word.text
+                  )}
+                  {index < taglineWords.length - 1 ? " " : ""}
+                </motion.span>
+              ))}
+            </motion.span>
           </motion.h2>
 
           <motion.p
