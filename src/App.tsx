@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
+import Hero from './components/Hero';
 import { About } from './components/About';
 import { Impact } from './components/Impact';
 import { Experience } from './components/Experience';
