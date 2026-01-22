@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Mail, Linkedin, Github, MessageSquare } from "lucide-react";
 
 export function Contact() {
@@ -211,17 +211,40 @@ export function Contact() {
                 disabled={status === "sending"}
                 className="w-full rounded-xl px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold hover:shadow-xl hover:shadow-blue-500/30 transition-all disabled:opacity-60"
               >
-                {status === "sending" ? "Sending..." : "Send Message"}
+                {status === "sending" ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="h-4 w-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+                    <span>Sending...</span>
+                  </span>
+                ) : (
+                  "Send Message"
+                )}
               </button>
 
-              {status === "success" && (
-                <p className="text-sm text-green-600">✅ Message sent!</p>
-              )}
-              {status === "error" && (
-                <p className="text-sm text-red-600">
-                  ❌ Failed to send. Please try again or email me directly.
-                </p>
-              )}
+              <AnimatePresence mode="wait">
+                {status === "success" && (
+                  <motion.p
+                    key="success"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    className="text-sm text-green-600"
+                  >
+                    Message sent!
+                  </motion.p>
+                )}
+                {status === "error" && (
+                  <motion.p
+                    key="error"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    className="text-sm text-red-600"
+                  >
+                    Failed to send. Please try again or email me directly.
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </form>
           </motion.div>
         </div>
