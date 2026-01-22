@@ -147,6 +147,9 @@ export function Projects() {
             >
               {/* Card */}
               <div className="relative h-full bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                  <div className="absolute -left-1/2 top-0 h-full w-1/2 rotate-12 bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-700 group-hover:translate-x-[220%]" />
+                </div>
                 {/* Featured Badge */}
                 {project.featured && (
                   <div className="absolute top-4 left-4 z-20">
