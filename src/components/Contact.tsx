@@ -59,7 +59,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative bg-white/60"
+      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative bg-white/60 dark:bg-slate-950/40"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -70,10 +70,10 @@ export function Contact() {
           transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
-          <h2 className="text-4xl sm:text-5xl text-slate-900">
-            Get In Touch<span className="text-blue-600">.</span>
+          <h2 className="text-4xl sm:text-5xl text-slate-900 dark:text-white">
+            Get In Touch<span className="text-blue-600 dark:text-blue-400">.</span>
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
+          <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
             I&apos;m always open to meaningful conversations about AI, product
             ideas, collaboration, or new opportunities.
           </p>
@@ -94,15 +94,15 @@ export function Contact() {
               href="mailto:amulya.kantamneni@gmail.com"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="block bg-white rounded-2xl border border-slate-200 shadow-lg p-6 hover:shadow-xl transition-all"
+              className="block bg-white rounded-2xl border border-slate-200 shadow-lg p-6 hover:shadow-xl transition-all dark:bg-slate-900 dark:border-slate-800"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-md">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-md dark:from-blue-500 dark:to-indigo-500">
                   <Mail className="text-white" size={20} />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-slate-900 font-semibold">Email Me</div>
-                  <div className="text-slate-600 text-sm truncate">
+                  <div className="text-slate-900 font-semibold dark:text-white">Email Me</div>
+                  <div className="text-slate-600 text-sm truncate dark:text-slate-300">
                     amulya.kantamneni@gmail.com
                   </div>
                 </div>
@@ -110,14 +110,14 @@ export function Contact() {
             </motion.a>
 
             {/* Connect Online card */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-lg p-6">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 dark:bg-slate-900 dark:border-slate-800">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-md">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-md dark:from-blue-500 dark:to-indigo-500">
                   <MessageSquare className="text-white" size={20} />
                 </div>
 
                 <div className="flex-1">
-                  <div className="text-slate-900 font-semibold">
+                  <div className="text-slate-900 font-semibold dark:text-white">
                     Connect Online
                   </div>
 
@@ -127,10 +127,10 @@ export function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ x: 4 }}
-                      className="flex items-center gap-3 text-slate-700 hover:text-blue-700 transition-colors"
+                      className="flex items-center gap-3 text-slate-700 hover:text-blue-700 transition-colors dark:text-slate-200 dark:hover:text-blue-400"
                     >
-                      <span className="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center">
-                        <Linkedin size={16} className="text-blue-600" />
+                      <span className="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center dark:bg-blue-500/10">
+                        <Linkedin size={16} className="text-blue-600 dark:text-blue-400" />
                       </span>
                       <span className="text-sm font-medium">LinkedIn</span>
                     </motion.a>
@@ -140,10 +140,10 @@ export function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ x: 4 }}
-                      className="flex items-center gap-3 text-slate-700 hover:text-slate-900 transition-colors"
+                      className="flex items-center gap-3 text-slate-700 hover:text-slate-900 transition-colors dark:text-slate-200 dark:hover:text-white"
                     >
-                      <span className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center">
-                        <Github size={16} className="text-slate-800" />
+                      <span className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center dark:bg-slate-800">
+                        <Github size={16} className="text-slate-800 dark:text-slate-200" />
                       </span>
                       <span className="text-sm font-medium">GitHub</span>
                     </motion.a>
@@ -159,11 +159,11 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl border border-slate-200 shadow-xl p-8"
+            className="bg-white rounded-2xl border border-slate-200 shadow-xl p-8 dark:bg-slate-900 dark:border-slate-800"
           >
             <form onSubmit={onSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2 dark:text-slate-200">
                   Your Name
                 </label>
                 <input
@@ -171,13 +171,13 @@ export function Contact() {
                   value={form.name}
                   onChange={onChange}
                   required
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500/40"
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500/40 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-blue-400/30"
                   placeholder="John Doe"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2 dark:text-slate-200">
                   Your Email
                 </label>
                 <input
@@ -186,13 +186,13 @@ export function Contact() {
                   value={form.email}
                   onChange={onChange}
                   required
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500/40"
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500/40 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-blue-400/30"
                   placeholder="john@example.com"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2 dark:text-slate-200">
                   Your Message
                 </label>
                 <textarea
@@ -201,7 +201,7 @@ export function Contact() {
                   onChange={onChange}
                   required
                   rows={6}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500/40"
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500/40 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:ring-blue-400/30"
                   placeholder="Tell me about your project or opportunity..."
                 />
               </div>
@@ -209,7 +209,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full rounded-xl px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold hover:shadow-xl hover:shadow-blue-500/30 transition-all disabled:opacity-60"
+                className="w-full rounded-xl px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold hover:shadow-xl hover:shadow-blue-500/30 transition-all disabled:opacity-60 dark:from-blue-500 dark:to-indigo-500"
               >
                 {status === "sending" ? (
                   <span className="flex items-center justify-center gap-2">
@@ -228,7 +228,7 @@ export function Contact() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 6 }}
-                    className="text-sm text-green-600"
+                    className="text-sm text-green-600 dark:text-green-400"
                   >
                     Message sent!
                   </motion.p>
@@ -239,7 +239,7 @@ export function Contact() {
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 6 }}
-                    className="text-sm text-red-600"
+                    className="text-sm text-red-600 dark:text-red-400"
                   >
                     Failed to send. Please try again or email me directly.
                   </motion.p>
