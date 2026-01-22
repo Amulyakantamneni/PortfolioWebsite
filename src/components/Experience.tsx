@@ -44,7 +44,7 @@ export function Experience() {
   return (
     <section
       id="experience"
-      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative bg-white/60"
+      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 relative bg-white/60 dark:bg-slate-950/40"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -58,12 +58,12 @@ export function Experience() {
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
             <div>
               <div className="flex items-center gap-4 mb-4">
-                <h2 className="text-4xl sm:text-5xl text-slate-900">
-                  Experience<span className="text-blue-600">.</span>
+                <h2 className="text-4xl sm:text-5xl text-slate-900 dark:text-white">
+                  Experience<span className="text-blue-600 dark:text-blue-400">.</span>
                 </h2>
-                <div className="flex-1 h-px bg-gradient-to-r from-blue-600/50 to-transparent" />
+                <div className="flex-1 h-px bg-gradient-to-r from-blue-600/50 to-transparent dark:from-blue-400/60" />
               </div>
-              <p className="text-xl text-slate-600">
+              <p className="text-xl text-slate-600 dark:text-slate-300">
                 Turning ideas into production-ready solutions
               </p>
             </div>
@@ -76,7 +76,7 @@ export function Experience() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-xl hover:shadow-blue-500/50 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-xl hover:shadow-blue-500/50 transition-all dark:from-blue-500 dark:to-indigo-500"
             >
               <Download size={18} />
               <span>Download Resume</span>
@@ -101,25 +101,25 @@ export function Experience() {
                 className={`w-full text-left px-6 py-4 rounded-xl transition-all duration-300 ${
                   activeTab === index
                     ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/50"
-                    : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-200"
+                    : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 dark:border-slate-800"
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <div
                     className={`p-2 rounded-lg ${
-                      activeTab === index ? "bg-white/20" : "bg-blue-50"
+                      activeTab === index ? "bg-white/20" : "bg-blue-50 dark:bg-blue-500/10"
                     }`}
                   >
                     <Briefcase
                       size={18}
-                      className={activeTab === index ? "text-white" : "text-blue-600"}
+                      className={activeTab === index ? "text-white" : "text-blue-600 dark:text-blue-400"}
                     />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold truncate">{exp.company}</div>
                     <div
                       className={`text-sm ${
-                        activeTab === index ? "text-blue-100" : "text-slate-500"
+                        activeTab === index ? "text-blue-100" : "text-slate-500 dark:text-slate-400"
                       }`}
                     >
                       {exp.period}
@@ -136,32 +136,32 @@ export function Experience() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="bg-white rounded-2xl border border-slate-200 shadow-xl p-8"
+            className="bg-white rounded-2xl border border-slate-200 shadow-xl p-8 dark:bg-slate-900 dark:border-slate-800"
           >
             {/* Header */}
-            <div className="mb-6 pb-6 border-b border-slate-200">
-              <h3 className="text-2xl text-slate-900 mb-3 font-semibold">
+            <div className="mb-6 pb-6 border-b border-slate-200 dark:border-slate-800">
+              <h3 className="text-2xl text-slate-900 mb-3 font-semibold dark:text-white">
                 {experiences[activeTab].position}
               </h3>
 
-              <div className="flex flex-wrap items-center gap-4 text-slate-600">
+              <div className="flex flex-wrap items-center gap-4 text-slate-600 dark:text-slate-300">
                 <div className="flex items-center gap-2">
-                  <div className="p-1.5 bg-blue-50 rounded-lg">
-                    <Briefcase size={14} className="text-blue-600" />
+                  <div className="p-1.5 bg-blue-50 rounded-lg dark:bg-blue-500/10">
+                    <Briefcase size={14} className="text-blue-600 dark:text-blue-400" />
                   </div>
                   <span className="font-medium">{experiences[activeTab].company}</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="p-1.5 bg-blue-50 rounded-lg">
-                    <Calendar size={14} className="text-blue-600" />
+                  <div className="p-1.5 bg-blue-50 rounded-lg dark:bg-blue-500/10">
+                    <Calendar size={14} className="text-blue-600 dark:text-blue-400" />
                   </div>
                   <span>{experiences[activeTab].period}</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="p-1.5 bg-blue-50 rounded-lg">
-                    <MapPin size={14} className="text-blue-600" />
+                  <div className="p-1.5 bg-blue-50 rounded-lg dark:bg-blue-500/10">
+                    <MapPin size={14} className="text-blue-600 dark:text-blue-400" />
                   </div>
                   <span>{experiences[activeTab].location}</span>
                 </div>
@@ -181,7 +181,7 @@ export function Experience() {
                   <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white font-semibold text-sm shadow-lg group-hover:scale-110 transition-transform">
                     {index + 1}
                   </div>
-                  <p className="text-slate-700 leading-relaxed flex-1 pt-1">{item}</p>
+                  <p className="text-slate-700 leading-relaxed flex-1 pt-1 dark:text-slate-200">{item}</p>
                 </motion.div>
               ))}
             </div>
