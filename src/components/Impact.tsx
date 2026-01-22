@@ -41,11 +41,11 @@ export function Impact() {
   ];
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-white via-blue-50/30 to-white">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-white via-blue-50/30 to-white dark:from-slate-950 dark:via-slate-900/60 dark:to-slate-950">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-96 h-96 bg-blue-400/10 rounded-full blur-3xl top-10 left-10 animate-pulse" />
-        <div className="absolute w-96 h-96 bg-purple-400/10 rounded-full blur-3xl bottom-10 right-10 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute w-96 h-96 bg-blue-400/10 rounded-full blur-3xl top-10 left-10 animate-pulse dark:bg-blue-500/20" />
+        <div className="absolute w-96 h-96 bg-purple-400/10 rounded-full blur-3xl bottom-10 right-10 animate-pulse dark:bg-purple-500/20" style={{ animationDelay: '1s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -57,10 +57,10 @@ export function Impact() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl text-slate-900 mb-4">
-            Impact & Results<span className="text-blue-600">.</span>
+          <h2 className="text-4xl sm:text-5xl text-slate-900 mb-4 dark:text-white">
+            Impact & Results<span className="text-blue-600 dark:text-blue-400">.</span>
           </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto dark:text-slate-300">
             Measurable outcomes from production systems
           </p>
         </motion.div>
@@ -110,7 +110,7 @@ function MetricCard({ metric, index }: { metric: any; index: number }) {
       onViewportEnter={() => setIsVisible(true)}
       className="group relative"
     >
-      <div className="relative h-full p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-300 hover:shadow-2xl transition-all duration-500 overflow-hidden">
+      <div className="relative h-full p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-300 hover:shadow-2xl transition-all duration-500 overflow-hidden dark:bg-slate-900 dark:border-slate-800 dark:hover:border-blue-500/60">
         {/* Gradient Background on Hover */}
         <div className={`absolute inset-0 bg-gradient-to-br ${metric.color} opacity-0 group-hover:opacity-5 transition-opacity`} />
         
@@ -129,12 +129,12 @@ function MetricCard({ metric, index }: { metric: any; index: number }) {
         </div>
 
         {/* Label */}
-        <h3 className="text-slate-900 font-semibold mb-1">
+        <h3 className="text-slate-900 font-semibold mb-1 dark:text-white">
           {metric.label}
         </h3>
 
         {/* Description */}
-        <p className="text-slate-600 text-sm">
+        <p className="text-slate-600 text-sm dark:text-slate-300">
           {metric.description}
         </p>
 
