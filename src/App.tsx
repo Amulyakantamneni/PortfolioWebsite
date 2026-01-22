@@ -61,7 +61,9 @@ export default function App() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.toggle('dark', theme === 'dark');
+    const isDark = theme === 'dark';
+    root.classList.toggle('dark', isDark);
+    document.body.classList.toggle('dark', isDark);
     window.localStorage.setItem('theme', theme);
   }, [theme]);
 
