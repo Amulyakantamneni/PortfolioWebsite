@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ExternalLink, Github, Folder, X, Sparkles } from 'lucide-react';
+import ParallaxLayer from './parallax/ParallaxLayer';
+import { Hotspot, Modal, InfoPanel } from './hotspots';
+import { Scene3D, PlaceholderGeometry, ClickZone3D, Overlay3D } from './three';
 
 type Project = {
   title: string;
@@ -22,6 +25,11 @@ type Project = {
 
 export function Projects() {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [activeSpot, setActiveSpot] = useState<{
+    title: string;
+    description: string;
+    bullets: string[];
+  } | null>(null);
 
   const projects: Project[] = [
     // ✅ NEW PROJECT — added first
@@ -109,30 +117,100 @@ export function Projects() {
     },
   ];
 
+  const projectHotspots = [
+    {
+      id: 'stack',
+      title: 'Full-stack AI Apps',
+      description: 'Shipping products with clean UX, fast APIs, and observable backends.',
+      bullets: ['Next.js + React UI', 'FastAPI services', 'Metrics-driven iteration'],
+      x: 25,
+      y: 35,
+      tone: 'blue' as const,
+    },
+    {
+      id: 'quality',
+      title: 'Evaluation Layer',
+      description: 'Automated evals and human feedback to keep quality high.',
+      bullets: ['Regression suites', 'Human-in-the-loop QA', 'RAG benchmarking'],
+      x: 76,
+      y: 50,
+      tone: 'emerald' as const,
+    },
+    {
+      id: 'delivery',
+      title: 'Production Delivery',
+      description: 'Shipping on time with resilient infra and CI/CD.',
+      bullets: ['Streaming responses', 'Caching + queues', 'Deployment playbooks'],
+      x: 60,
+      y: 75,
+      tone: 'violet' as const,
+    },
+  ];
+
   return (
     <section
       id="projects"
-      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-blue-50/30"
+      className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-blue-50/30 dark:from-slate-950 dark:to-slate-900"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <h2 className="text-4xl sm:text-5xl text-slate-900">
-              Featured Projects<span className="text-blue-600">.</span>
-            </h2>
-            <div className="flex-1 h-px bg-gradient-to-r from-blue-600/50 to-transparent" />
+        <ParallaxLayer speed={0.08}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-16"
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <h2 className="text-4xl sm:text-5xl text-slate-900 dark:text-white">
+                Featured Projects<span className="text-blue-600 dark:text-blue-400">.</span>
+              </h2>
+              <div className="flex-1 h-px bg-gradient-to-r from-blue-600/50 to-transparent dark:from-blue-400/60 dark:to-transparent" />
+            </div>
+            <p className="text-xl text-slate-600 dark:text-slate-300">
+              Building solutions that make an impact
+            </p>
+          </motion.div>
+        </ParallaxLayer>
+
+        <div className="mb-16 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <ParallaxLayer speed={0.05}>
+            <InfoPanel
+              title="3D Product Showcase"
+              description="A quick snapshot of how projects map to the full delivery pipeline."
+              bullets={[
+                'Design-focused UX',
+                'LLM-powered backend services',
+                'Deployment & performance tuning',
+              ]}
+            />
+          </ParallaxLayer>
+
+          <div className="relative h-[320px] w-full overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
+            <Scene3D className="h-full w-full">
+              <PlaceholderGeometry color="#a78bfa" />
+              <ClickZone3D onSelect={() => setActiveSpot(projectHotspots[0])} />
+              <Overlay3D position={[0, -1.7, 0]}>
+                <div className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-900 shadow-md">
+                  Project Stack View
+                </div>
+              </Overlay3D>
+            </Scene3D>
+
+            {projectHotspots.map((spot) => (
+              <Hotspot
+                key={spot.id}
+                x={spot.x}
+                y={spot.y}
+                title={spot.title}
+                subtitle={spot.description}
+                tone={spot.tone}
+                onOpen={() => setActiveSpot(spot)}
+              />
+            ))}
           </div>
-          <p className="text-xl text-slate-600">
-            Building solutions that make an impact
-          </p>
-        </motion.div>
+        </div>
 
         {/* Grid */}
         <div className="grid md:grid-cols-2 gap-8">
@@ -146,14 +224,14 @@ export function Projects() {
               className="group relative"
             >
               {/* Card */}
-              <div className="relative h-full bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div className="relative h-full bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 dark:bg-slate-900 dark:border-slate-800 dark:hover:shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]">
                 <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <div className="absolute -left-1/2 top-0 h-full w-1/2 rotate-12 bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-700 group-hover:translate-x-[220%]" />
+                  <div className="absolute -left-1/2 top-0 h-full w-1/2 rotate-12 bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-700 group-hover:translate-x-[220%] dark:via-slate-500/30" />
                 </div>
                 {/* Featured Badge */}
                 {project.featured && (
                   <div className="absolute top-4 left-4 z-20">
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs rounded-full shadow-lg">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs rounded-full shadow-lg dark:from-blue-500 dark:to-indigo-500">
                       <Sparkles size={12} />
                       <span>Featured</span>
                     </div>
@@ -162,27 +240,27 @@ export function Projects() {
 
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity dark:from-blue-400/15 dark:to-indigo-400/15" />
                   <img
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent dark:from-black/90 dark:via-black/30" />
 
                   {/* Folder Icon */}
-                  <div className="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg">
-                    <Folder className="text-blue-600" size={24} />
+                  <div className="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg dark:bg-slate-900/80 dark:shadow-black/30">
+                    <Folder className="text-blue-600 dark:text-blue-400" size={24} />
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6 space-y-4">
-                  <h3 className="text-xl text-slate-900 font-semibold line-clamp-2 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-xl text-slate-900 font-semibold line-clamp-2 group-hover:text-blue-600 transition-colors dark:text-white dark:group-hover:text-blue-400">
                     {project.title}
                   </h3>
 
-                  <p className="text-slate-600 line-clamp-2 leading-relaxed">
+                  <p className="text-slate-600 line-clamp-2 leading-relaxed dark:text-slate-300">
                     {project.description}
                   </p>
 
@@ -191,7 +269,7 @@ export function Projects() {
                     {project.tags.map(tag => (
                       <span
                         key={tag}
-                        className="text-xs text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 font-medium"
+                        className="text-xs text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 font-medium dark:text-blue-300 dark:bg-blue-500/10 dark:border-blue-500/30"
                       >
                         {tag}
                       </span>
@@ -204,7 +282,7 @@ export function Projects() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 rounded-lg transition-all border border-slate-200 hover:border-blue-300"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 rounded-lg transition-all border border-slate-200 hover:border-blue-300 dark:text-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700/70 dark:border-slate-700 dark:hover:border-blue-500/60"
                     >
                       <Github size={16} />
                       <span>Code</span>
@@ -214,7 +292,7 @@ export function Projects() {
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-lg transition-all shadow-md hover:shadow-lg"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-lg transition-all shadow-md hover:shadow-lg dark:from-blue-500 dark:to-indigo-500 dark:hover:from-blue-400 dark:hover:to-indigo-400"
                     >
                       <ExternalLink size={16} />
                       <span>Live Demo</span>
@@ -222,7 +300,7 @@ export function Projects() {
 
                     <button
                       onClick={() => setActiveProject(project)}
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:text-blue-600 bg-white hover:bg-slate-50 rounded-lg transition-all border border-slate-200 hover:border-blue-300"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:text-blue-600 bg-white hover:bg-slate-50 rounded-lg transition-all border border-slate-200 hover:border-blue-300 dark:text-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-slate-700 dark:hover:border-blue-500/60"
                     >
                       <span>Details</span>
                     </button>
@@ -243,7 +321,7 @@ export function Projects() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setActiveProject(null)}
-                className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md"
+                className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md dark:bg-black/70"
               />
 
               {/* Modal Content */}
@@ -252,13 +330,13 @@ export function Projects() {
                   initial={{ opacity: 0, scale: 0.9, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                  className="bg-white max-w-3xl w-full rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto"
+                  className="bg-white max-w-3xl w-full rounded-2xl shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto dark:bg-slate-900 dark:border-slate-800"
                 >
                   {/* Header */}
-                  <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 rounded-t-2xl">
+                  <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 rounded-t-2xl dark:from-blue-500 dark:to-indigo-500">
                     <button
                       onClick={() => setActiveProject(null)}
-                      className="absolute top-6 right-6 p-2 hover:bg-white/20 rounded-lg transition-colors"
+                      className="absolute top-6 right-6 p-2 hover:bg-white/20 rounded-lg transition-colors dark:hover:bg-white/15"
                     >
                       <X size={20} />
                     </button>
@@ -270,58 +348,58 @@ export function Projects() {
                   {/* Content */}
                   <div className="p-6 space-y-6">
                     <div className="space-y-4">
-                      <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
-                        <h4 className="font-semibold text-red-900 mb-2">
+                      <div className="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg dark:bg-red-500/10 dark:border-red-400">
+                        <h4 className="font-semibold text-red-900 mb-2 dark:text-red-200">
                           Problem
                         </h4>
-                        <p className="text-slate-700">
+                        <p className="text-slate-700 dark:text-slate-200">
                           {activeProject.details.problem}
                         </p>
                       </div>
 
-                      <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
-                        <h4 className="font-semibold text-green-900 mb-2">
+                      <div className="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg dark:bg-emerald-500/10 dark:border-emerald-400">
+                        <h4 className="font-semibold text-green-900 mb-2 dark:text-emerald-200">
                           Solution
                         </h4>
-                        <p className="text-slate-700">
+                        <p className="text-slate-700 dark:text-slate-200">
                           {activeProject.details.solution}
                         </p>
                       </div>
 
-                      <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
-                        <h4 className="font-semibold text-blue-900 mb-3">
+                      <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg dark:bg-blue-500/10 dark:border-blue-400">
+                        <h4 className="font-semibold text-blue-900 mb-3 dark:text-blue-200">
                           Key Features
                         </h4>
                         <ul className="space-y-2">
                           {activeProject.details.features.map((f, i) => (
                             <li
                               key={i}
-                              className="flex items-start gap-3 text-slate-700"
+                              className="flex items-start gap-3 text-slate-700 dark:text-slate-200"
                             >
-                              <span className="text-blue-600 mt-1">✓</span>
+                              <span className="text-blue-600 mt-1 dark:text-blue-300">✓</span>
                               <span>{f}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
 
-                      <div className="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg">
-                        <h4 className="font-semibold text-purple-900 mb-2">
+                      <div className="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg dark:bg-purple-500/10 dark:border-purple-400">
+                        <h4 className="font-semibold text-purple-900 mb-2 dark:text-purple-200">
                           Learnings
                         </h4>
-                        <p className="text-slate-700">
+                        <p className="text-slate-700 dark:text-slate-200">
                           {activeProject.details.learnings}
                         </p>
                       </div>
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex gap-3 pt-4 border-t border-slate-200">
+                    <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
                       <a
                         href={activeProject.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all"
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all dark:text-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700"
                       >
                         <Github size={18} />
                         <span>View Code</span>
@@ -330,7 +408,7 @@ export function Projects() {
                         href={activeProject.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-xl transition-all shadow-lg"
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-xl transition-all shadow-lg dark:from-blue-500 dark:to-indigo-500 dark:hover:from-blue-400 dark:hover:to-indigo-400"
                       >
                         <ExternalLink size={18} />
                         <span>Live Demo</span>
@@ -343,6 +421,28 @@ export function Projects() {
           )}
         </AnimatePresence>
       </div>
+
+      <Modal
+        isOpen={Boolean(activeSpot)}
+        title={activeSpot?.title ?? ''}
+        onClose={() => setActiveSpot(null)}
+      >
+        {activeSpot && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              {activeSpot.description}
+            </p>
+            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+              {activeSpot.bullets.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-500" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </Modal>
     </section>
   );
 }
