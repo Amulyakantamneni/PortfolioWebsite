@@ -2,6 +2,16 @@ import { motion } from "motion/react";
 import { ArrowDown, Github, Linkedin, Mail, Sparkles, Rocket } from "lucide-react";
 
 export function Hero() {
+  const taglineWords = [
+    { text: "Building" },
+    { text: "intelligent", highlight: true },
+    { text: "systems", highlight: true },
+    { text: "that" },
+    { text: "ship" },
+    { text: "to" },
+    { text: "production." },
+  ];
+
   return (
     <section
       id="home"
@@ -12,15 +22,15 @@ export function Hero() {
         <motion.div
           animate={{ scale: [1, 1.15, 1], rotate: [0, 45, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-56 -left-56 h-[560px] w-[560px] rounded-full blur-3xl bg-gradient-to-r from-blue-400/20 to-indigo-400/20"
+          className="absolute -top-56 -left-56 h-[560px] w-[560px] rounded-full blur-3xl bg-gradient-to-r from-blue-400/20 to-indigo-400/20 dark:from-blue-500/25 dark:to-indigo-500/25"
         />
         <motion.div
           animate={{ scale: [1, 1.2, 1], rotate: [0, -45, 0] }}
           transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-56 -right-56 h-[560px] w-[560px] rounded-full blur-3xl bg-gradient-to-r from-purple-400/15 to-pink-400/15"
+          className="absolute -bottom-56 -right-56 h-[560px] w-[560px] rounded-full blur-3xl bg-gradient-to-r from-purple-400/15 to-pink-400/15 dark:from-fuchsia-500/20 dark:to-rose-500/20"
         />
 
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a10_1px,transparent_1px),linear-gradient(to_bottom,#0f172a10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_45%,#000_70%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a10_1px,transparent_1px),linear-gradient(to_bottom,#0f172a10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_45%,#000_70%,transparent_100%)] dark:opacity-25" />
 
         <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/40 to-white/80 dark:from-black/10 dark:via-black/30 dark:to-black/60" />
       </div>
@@ -34,9 +44,9 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="mb-6 flex justify-center"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-5 py-2.5 shadow-sm backdrop-blur-md">
-              <Sparkles className="text-blue-600" size={18} />
-              <span className="text-sm font-medium text-slate-700">
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-5 py-2.5 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70">
+              <Sparkles className="text-blue-600 dark:text-blue-400" size={18} />
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
                 Open to AI/ML Engineer opportunities
               </span>
             </div>
@@ -46,7 +56,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="mb-4 text-sm font-semibold uppercase tracking-wide text-blue-600"
+            className="mb-4 text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400"
           >
             AI / ML Engineer • LLM Apps • RAG • Production ML
           </motion.p>
@@ -55,9 +65,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-4 text-5xl font-bold tracking-tight text-slate-900 sm:text-7xl lg:text-8xl"
+            className="mb-4 text-5xl font-bold tracking-tight text-slate-900 sm:text-7xl lg:text-8xl dark:text-white"
           >
-            <span className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent dark:from-white dark:via-blue-200 dark:to-slate-100">
               Amulya Kantamneni
             </span>
           </motion.h1>
@@ -66,28 +76,54 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="mx-auto mb-6 max-w-4xl text-xl font-medium leading-snug text-slate-600 sm:text-3xl"
+            className="mx-auto mb-6 max-w-4xl text-xl font-medium leading-snug text-slate-600 sm:text-3xl dark:text-slate-200"
           >
-            Building{" "}
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text font-bold text-transparent">
-                intelligent systems
-              </span>
-              <motion.span
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="absolute bottom-0 left-0 -z-10 h-3 bg-gradient-to-r from-blue-400/20 to-indigo-400/20"
-              />
-            </span>{" "}
-            that ship to production.
+            <motion.span
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+                },
+              }}
+            >
+              {taglineWords.map((word, index) => (
+                <motion.span
+                  key={`${word.text}-${index}`}
+                  variants={{
+                    hidden: { opacity: 0, y: 12 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  className="inline-block"
+                >
+                  {word.highlight ? (
+                    <span className="relative inline-block">
+                      <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text font-bold text-transparent dark:from-blue-400 dark:to-indigo-300">
+                        {word.text}
+                      </span>
+                      <motion.span
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                        className="absolute bottom-0 left-0 -z-10 h-2 w-full origin-left bg-gradient-to-r from-blue-400/25 to-indigo-400/25 dark:from-blue-400/20 dark:to-indigo-300/20"
+                      />
+                    </span>
+                  ) : (
+                    word.text
+                  )}
+                  {index < taglineWords.length - 1 ? " " : ""}
+                </motion.span>
+              ))}
+            </motion.span>
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto mb-10 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg"
+            className="mx-auto mb-10 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300"
           >
             I build LLM-powered products end-to-end—retrieval & evaluation, backend APIs, and reliable deployments—
             focused on measurable impact and clean engineering.
@@ -126,7 +162,7 @@ export function Hero() {
               onClick={() =>
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="inline-flex items-center justify-center rounded-xl border-2 border-slate-200 bg-white/80 px-7 py-3.5 font-semibold text-slate-700 shadow-sm backdrop-blur-md transition hover:border-blue-300 hover:bg-white"
+              className="inline-flex items-center justify-center rounded-xl border-2 border-slate-200 bg-white/80 px-7 py-3.5 font-semibold text-slate-700 shadow-sm backdrop-blur-md transition hover:border-blue-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-blue-500/60 dark:hover:bg-slate-900"
             >
               Let&apos;s Connect
             </motion.button>
@@ -144,7 +180,7 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="rounded-xl border-2 border-slate-200 bg-white/80 p-3 text-slate-700 shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:text-blue-600"
+              className="rounded-xl border-2 border-slate-200 bg-white/80 p-3 text-slate-700 shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:text-blue-600 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-blue-500/60 dark:hover:bg-slate-900 dark:hover:text-blue-400"
             >
               <Github size={22} />
             </a>
@@ -154,7 +190,7 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="rounded-xl border-2 border-slate-200 bg-white/80 p-3 text-slate-700 shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:text-blue-600"
+              className="rounded-xl border-2 border-slate-200 bg-white/80 p-3 text-slate-700 shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:text-blue-600 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-blue-500/60 dark:hover:bg-slate-900 dark:hover:text-blue-400"
             >
               <Linkedin size={22} />
             </a>
@@ -162,7 +198,7 @@ export function Hero() {
             <a
               href="mailto:amulya.kantamneni@gmail.com"
               aria-label="Email"
-              className="rounded-xl border-2 border-slate-200 bg-white/80 p-3 text-slate-700 shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:text-blue-600"
+              className="rounded-xl border-2 border-slate-200 bg-white/80 p-3 text-slate-700 shadow-sm backdrop-blur-md transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:text-blue-600 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-200 dark:hover:border-blue-500/60 dark:hover:bg-slate-900 dark:hover:text-blue-400"
             >
               <Mail size={22} />
             </a>
@@ -180,8 +216,8 @@ export function Hero() {
               transition={{ duration: 2, repeat: Infinity }}
               className="flex flex-col items-center gap-2"
             >
-              <span className="text-sm font-medium text-slate-500">Scroll</span>
-              <ArrowDown className="text-blue-600" size={24} />
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">Scroll</span>
+              <ArrowDown className="text-blue-600 dark:text-blue-400" size={24} />
             </motion.div>
           </motion.div>
         </div>
@@ -189,3 +225,5 @@ export function Hero() {
     </section>
   );
 }
+
+export default Hero;
