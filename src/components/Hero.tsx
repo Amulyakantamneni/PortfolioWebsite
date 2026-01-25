@@ -1,7 +1,21 @@
+import { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowDown, Github, Linkedin, Mail, Sparkles, Rocket } from "lucide-react";
+import ParallaxLayer from "./parallax/ParallaxLayer";
+import { Hotspot, Modal, InfoPanel } from "./hotspots";
+import { Scene3D, PlaceholderGeometry, ClickZone3D, Overlay3D } from "./three";
 
 export function Hero() {
+  type HotspotData = {
+    id: string;
+    title: string;
+    subtitle: string;
+    description: string;
+    bullets: string[];
+  };
+
+  const [activeHotspot, setActiveHotspot] = useState<HotspotData | null>(null);
+
   const taglineWords = [
     { text: "Building" },
     { text: "intelligent", highlight: true },
@@ -12,6 +26,41 @@ export function Hero() {
     { text: "production." },
   ];
 
+  const heroHotspots: HotspotData[] = [
+    {
+      id: "rag",
+      title: "RAG Stack",
+      subtitle: "Vector search + evals",
+      description:
+        "Production retrieval pipelines with embeddings, reranking, and continuous evaluation.",
+      bullets: [
+        "Hybrid retrieval + reranking",
+        "Automated evals + monitoring",
+        "Latency-aware orchestration",
+      ],
+    },
+    {
+      id: "agents",
+      title: "Agentic Workflows",
+      subtitle: "Tooling + guardrails",
+      description:
+        "Multi-step reasoning pipelines that stay aligned, safe, and observable.",
+      bullets: [
+        "Tool calling + memory",
+        "Structured outputs",
+        "Human-in-the-loop checks",
+      ],
+    },
+    {
+      id: "infra",
+      title: "Production ML",
+      subtitle: "MLOps + deployment",
+      description:
+        "End-to-end delivery with fast APIs, CI/CD, and scalable inference.",
+      bullets: ["Containerized services", "A/B experiments", "Cost-aware scaling"],
+    },
+  ];
+
   return (
     <section
       id="home"
@@ -19,20 +68,70 @@ export function Hero() {
     >
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], rotate: [0, 45, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-56 -left-56 h-[560px] w-[560px] rounded-full blur-3xl bg-gradient-to-r from-blue-400/20 to-indigo-400/20 dark:from-blue-500/25 dark:to-indigo-500/25"
-        />
-        <motion.div
-          animate={{ scale: [1, 1.2, 1], rotate: [0, -45, 0] }}
-          transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-56 -right-56 h-[560px] w-[560px] rounded-full blur-3xl bg-gradient-to-r from-purple-400/15 to-pink-400/15 dark:from-fuchsia-500/20 dark:to-rose-500/20"
-        />
+        <ParallaxLayer speed={0.08} className="absolute -top-56 -left-56">
+          <motion.div
+            animate={{ scale: [1, 1.15, 1], rotate: [0, 45, 0] }}
+            transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+            className="h-[560px] w-[560px] rounded-full blur-3xl bg-gradient-to-r from-blue-400/20 to-indigo-400/20 dark:from-blue-500/25 dark:to-indigo-500/25"
+          />
+        </ParallaxLayer>
+        <ParallaxLayer speed={-0.06} className="absolute -bottom-56 -right-56">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1], rotate: [0, -45, 0] }}
+            transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+            className="h-[560px] w-[560px] rounded-full blur-3xl bg-gradient-to-r from-purple-400/15 to-pink-400/15 dark:from-fuchsia-500/20 dark:to-rose-500/20"
+          />
+        </ParallaxLayer>
 
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a10_1px,transparent_1px),linear-gradient(to_bottom,#0f172a10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_45%,#000_70%,transparent_100%)] dark:opacity-25" />
 
         <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/40 to-white/80 dark:from-black/10 dark:via-black/30 dark:to-black/60" />
+      </div>
+
+      {/* Parallax 3D + Hotspots */}
+      <div className="absolute inset-0 z-0 hidden lg:block">
+        <ParallaxLayer
+          speed={0.12}
+          className="absolute right-10 top-1/2 -translate-y-1/2"
+        >
+          <div className="relative h-[340px] w-[340px] rounded-[32px] border border-white/30 bg-white/10 shadow-[0_30px_80px_-30px_rgba(59,130,246,0.5)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/40">
+            <Scene3D className="h-full w-full rounded-[32px]">
+              <PlaceholderGeometry color="#93c5fd" />
+              <ClickZone3D onSelect={() => setActiveHotspot(heroHotspots[0])} />
+              <Overlay3D position={[0, -1.8, 0]}>
+                <div className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-900 shadow-md">
+                  Live 3D Demo
+                </div>
+              </Overlay3D>
+            </Scene3D>
+          </div>
+        </ParallaxLayer>
+
+        <ParallaxLayer speed={0.05} className="absolute left-12 bottom-20">
+          <InfoPanel
+            title="Intelligent Systems"
+            description="Full-stack AI engineering with product velocity and measurable impact."
+            bullets={[
+              "LLM apps + eval pipelines",
+              "Fast inference + deployment",
+              "Design for reliability",
+            ]}
+          />
+        </ParallaxLayer>
+
+        <div className="absolute inset-0">
+          {heroHotspots.map((spot) => (
+            <Hotspot
+              key={spot.id}
+              x={spot.id === "rag" ? 78 : spot.id === "agents" ? 64 : 70}
+              y={spot.id === "rag" ? 28 : spot.id === "agents" ? 62 : 44}
+              title={spot.title}
+              subtitle={spot.subtitle}
+              tone={spot.id === "rag" ? "blue" : spot.id === "agents" ? "violet" : "emerald"}
+              onOpen={() => setActiveHotspot(spot)}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -222,6 +321,28 @@ export function Hero() {
           </motion.div>
         </div>
       </div>
+
+      <Modal
+        isOpen={Boolean(activeHotspot)}
+        title={activeHotspot?.title ?? ""}
+        onClose={() => setActiveHotspot(null)}
+      >
+        {activeHotspot && (
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              {activeHotspot.description}
+            </p>
+            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+              {activeHotspot.bullets.map((bullet) => (
+                <li key={bullet} className="flex items-start gap-2">
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-blue-500" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </Modal>
     </section>
   );
 }
