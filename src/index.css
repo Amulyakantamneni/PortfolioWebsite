@@ -94,3 +94,68 @@ body::before {
     radial-gradient(700px 500px at 85% 15%, rgba(129, 140, 248, .10), transparent 60%),
     radial-gradient(900px 600px at 50% 90%, rgba(0, 0, 0, .45), transparent 55%);
 }
+
+/* ===== Dark mode overrides (fallback for Tailwind v4) ===== */
+.dark .bg-white {
+  background-color: rgb(15 23 42) !important; /* slate-900 */
+}
+
+.dark .bg-white\/80 {
+  background-color: rgb(15 23 42 / 0.8) !important;
+}
+
+.dark .bg-white\/95 {
+  background-color: rgb(15 23 42 / 0.95) !important;
+}
+
+.dark .border-slate-200 {
+  border-color: rgb(30 41 59) !important; /* slate-800 */
+}
+
+.dark .border-slate-200\/50 {
+  border-color: rgb(30 41 59 / 0.5) !important;
+}
+
+.dark .text-slate-900 {
+  color: rgb(248 250 252) !important; /* slate-50 */
+}
+
+.dark .text-slate-700 {
+  color: rgb(226 232 240) !important; /* slate-200 */
+}
+
+.dark .text-slate-600 {
+  color: rgb(203 213 225) !important; /* slate-300 */
+}
+
+.dark .bg-slate-100 {
+  background-color: rgb(30 41 59) !important; /* slate-800 */
+}
+
+.dark .bg-slate-50 {
+  background-color: rgb(30 41 59) !important;
+}
+
+.dark .bg-blue-50 {
+  background-color: rgb(30 58 138 / 0.2) !important; /* blue-900/20 */
+}
+
+.dark .text-blue-700 {
+  color: rgb(147 197 253) !important; /* blue-300 */
+}
+
+.dark .border-blue-200 {
+  border-color: rgb(59 130 246 / 0.3) !important; /* blue-500/30 */
+}
+
+.dark .from-white {
+  --tw-gradient-from: rgb(2 6 23) !important; /* slate-950 */
+}
+
+.dark .to-blue-50\/30 {
+  --tw-gradient-to: rgb(15 23 42) !important; /* slate-900 */
+}
+
+.dark .via-blue-50\/30 {
+  --tw-gradient-via: rgb(15 23 42) !important;
+}
